@@ -1,6 +1,11 @@
 # **Multi UAV SLAM**
 
-Note on Collaboration: This project was developed in collaboration with @vigyannveshi. My primary contributions were setting up the multi-UAV simulation environment, creating the ROS2/Gazebo pipeline, and managing coordinate transformations.
+
+> [!NOTE]
+> **Collaborative Project:** This repository was developed in collaboration with [@vigyannveshi](https://github.com/vigyannveshi). 
+> 
+> * **My Primary Contributions:** Setting up the multi-UAV simulation environment (Gazebo Harmonic + Ardupilot SITL), designing the ROS2 and MAVROS communication pipeline, establishing coordinate frame transformations ($tf_2$), and conducting ATE trajectory evaluation benchmarks.
+> * **Co-author Contributions:** Integration and implementation of the visual SLAM algorithm (ORB-SLAM3) and trajectory tracking nodes.
 
 ### **1. ROS2 Workspace**
 
