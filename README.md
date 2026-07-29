@@ -1,5 +1,7 @@
 # **Multi UAV SLAM**
 
+Note on Collaboration: This project was developed in collaboration with @vigyannveshi. My primary contributions were setting up the multi-UAV simulation environment, creating the ROS2/Gazebo pipeline, and managing coordinate transformations.
+
 ### **1. ROS2 Workspace**
 
 |Package|Description|Command|
