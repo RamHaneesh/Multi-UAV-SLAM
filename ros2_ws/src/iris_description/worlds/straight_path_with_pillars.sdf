@@ -1,0 +1,424 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="default">
+
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <plugin filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <scene>
+      <ambient>0.8 0.8 0.8 1</ambient>
+      <background>0.4 0.4 0.4 1</background>
+      <shadows>false</shadows>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 20 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- AXES -->
+    <!-- <model name="axes">
+      <static>1</static>
+      <link name="link">
+        <visual name="r">
+          <cast_shadows>0</cast_shadows>
+          <pose>5 0 0.1 0 0 0</pose>
+          <geometry><box><size>10 0.01 0.01</size></box></geometry>
+          <material>
+            <ambient>1 0 0 0.8</ambient><diffuse>1 0 0 0.8</diffuse>
+            <emissive>1 0 0 0.8</emissive><specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+        <visual name="g">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 5 0.1 0 0 0</pose>
+          <geometry><box><size>0.01 10 0.01</size></box></geometry>
+          <material>
+            <ambient>0 1 0 0.8</ambient><diffuse>0 1 0 0.8</diffuse>
+            <emissive>0 1 0 0.8</emissive><specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+        <visual name="b">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 0 5.1 0 0 0</pose>
+          <geometry><box><size>0.01 0.01 10</size></box></geometry>
+          <material>
+            <ambient>0 0 1 0.8</ambient><diffuse>0 0 1 0.8</diffuse>
+            <emissive>0 0 1 0.8</emissive><specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+      </link>
+    </model> -->
+
+    <!-- ================= RUNWAY GROUND (40m x 8m, centered at x=20) ================= -->
+    <model name="runway_ground">
+      <static>true</static>
+      <pose>20 0 0 0 0 3.14159</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>40 8</size></plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane><normal>0 0 1</normal><size>40 8</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal>
+              <albedo_map>file://materials/textures/runway.png</albedo_map>
+              <roughness>1.0</roughness><metalness>0</metalness>
+            </metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= WALLS ================= -->
+
+    <model name="wall_left">
+      <static>true</static>
+      <pose>20 4 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>40 0.2 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>40 0.2 2.5</size></box></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal>
+              <albedo_map>file://materials/textures/plaster_bricks.jpg</albedo_map>
+              <roughness>1.0</roughness><metalness>0</metalness>
+            </metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_right">
+      <static>true</static>
+      <pose>20 -4 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>40 0.2 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>40 0.2 2.5</size></box></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal>
+              <albedo_map>file://materials/textures/plaster_bricks.jpg</albedo_map>
+              <roughness>1.0</roughness><metalness>0</metalness>
+            </metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_back">
+      <static>true</static>
+      <pose>40 0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 8 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.2 8 2.5</size></box></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal>
+              <albedo_map>file://materials/textures/plaster_bricks.jpg</albedo_map>
+              <roughness>1.0</roughness><metalness>0</metalness>
+            </metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= PILLARS ================= -->
+    <!--
+      Corridor: 40m long (x=0 to x=40), 8m wide (y=-4 to y=4)
+      UAV spawns at x=0, flies to x=40 and back = ~80m + turns ~= 100m trajectory (matches paper)
+      Left pillars:  y=+1.5, at x=5,10,15,20,25,30,35,40  (8 pillars)
+      Right pillars: y=-1.5, staggered at x=7,12,17,22,27,32,37,40  (8 pillars)
+      Height: 1.75m (center z=0.875), tops at 1.75m
+      UAV at 2.5m clears pillar tops by 0.75m
+    -->
+
+    <!-- LEFT SIDE (y=+1.5) -->
+    <model name="pillar_L0">
+      <static>true</static>
+      <pose>5 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall3.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L1">
+      <static>true</static>
+      <pose>10 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall7.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L2">
+      <static>true</static>
+      <pose>15 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall12.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L3">
+      <static>true</static>
+      <pose>20 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall4.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L4">
+      <static>true</static>
+      <pose>25 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall24.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L5">
+      <static>true</static>
+      <pose>30 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall20.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L6">
+      <static>true</static>
+      <pose>35 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall19.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_L7">
+      <static>true</static>
+      <pose>40 1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall28.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- RIGHT SIDE (y=-1.5), staggered by 2m -->
+    <model name="pillar_R0">
+      <static>true</static>
+      <pose>7 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall18.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R1">
+      <static>true</static>
+      <pose>12 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall17.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R2">
+      <static>true</static>
+      <pose>17 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall16.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R3">
+      <static>true</static>
+      <pose>22 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall15.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R4">
+      <static>true</static>
+      <pose>27 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall14.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R5">
+      <static>true</static>
+      <pose>32 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall6.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R6">
+      <static>true</static>
+      <pose>37 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall10.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillar_R7">
+      <static>true</static>
+      <pose>40 -1.5 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.75</size></box></geometry></collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>0.6 0.6 1.75</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.0 0.0 0.0 1</specular>
+            <pbr><metal><albedo_map>file://materials/media/wall26.png</albedo_map><roughness>1.0</roughness><metalness>0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

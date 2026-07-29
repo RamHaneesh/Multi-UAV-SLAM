@@ -1,0 +1,30 @@
+# VSCode
+.vscode/
+
+# Custom folders
+additionals/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# ROS2 workspace build artifacts
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# temporaries
+temp.md
+
+# keyframe_trajectories & slam_output.txt
+ros2_ws/KeyFrameTrajectory.txt
+ros2_ws/slam_output.txt
+
+# ignore VSLAM_CHANGES folder
+VSLAM_CHANGES/
+
+# recorded bags for ate-evaluation
+/ros2_ws/src/iris_evaluation/eval/
+
+# results folder
+/results

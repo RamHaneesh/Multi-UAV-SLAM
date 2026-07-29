@@ -1,0 +1,155 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters
+#--------------------------------------------------------------------------------------------
+Camera.type: "PinHole"
+
+# Intrinsics (computed from HFOV=1.3962634 rad, 640x480)
+# fx = (width/2) / tan(HFOV/2) = 320 / tan(0.6981317) = 381.37
+Camera.fx: 381.37
+Camera.fy: 381.37
+Camera.cx: 320.0
+Camera.cy: 240.0
+
+# No distortion (Gazebo pinhole model is ideal)
+Camera.k1: 0.0
+Camera.k2: 0.0
+Camera.p1: 0.0
+Camera.p2: 0.0
+
+Camera.width: 640
+Camera.height: 480
+
+Camera.fps: 15.0
+
+# Stereo baseline times fx (baseline=0.12m → left y=0.06, right y=-0.06)
+Camera.bf: 45.764
+
+# Grayscale — RGB flag ignored
+Camera.RGB: 1
+
+# Close/Far threshold (baseline times)
+ThDepth: 40.0
+
+# ### NOT NEEDED FOR STEREO SLAM ###
+#--------------------------------------------------------------------------------------------
+# Tbc: Transform from camera_left_optical_link to imu_link
+# Computed from:
+#   T_imu_base:        imu pose in base_link = (0,0,0, roll=180deg, pitch=0, yaw=0)
+#   T_base_cam_phys:   left cam pose in base_link = (0.12, 0.06, 0.02, pitch=15deg)
+#   T_phys_optical:    OpenCV correction = euler(-pi/2, 0, -pi/2)
+#   Tbc = T_imu_base^-1 * T_base_cam_phys * T_phys_optical
+#--------------------------------------------------------------------------------------------
+# Tbc: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: f
+#    data: [ 0.000000, -0.258820,  0.965926,  0.120000,
+#            1.000000,  0.000000,  0.000000, -0.060000,
+#            0.000000,  0.965926,  0.258820, -0.020000,
+#            0.000000,  0.000000,  0.000000,  1.000000]
+
+#--------------------------------------------------------------------------------------------
+# IMU Parameters (from SDF imu_sensor noise model)
+#--------------------------------------------------------------------------------------------
+# IMU.NoiseGyro: 1.9393e-05     # gyro stddev from SDF
+# IMU.NoiseAcc: 1.7e-03         # accel stddev from SDF
+# IMU.GyroWalk: 1.0e-06         # gyro bias_stddev from SDF
+# IMU.AccWalk: 1.0e-04          # accel bias_stddev from SDF
+# IMU.Frequency: 200
+
+# ### --- END - NOT NEEDED FOR STEREO SLAM ###
+
+#--------------------------------------------------------------------------------------------
+# Stereo Rectification
+# Gazebo cameras are ideal — no distortion, no skew, already rectified
+#--------------------------------------------------------------------------------------------
+LEFT.height: 480
+LEFT.width: 640
+LEFT.D: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [0.0, 0.0, 0.0, 0.0, 0.0]
+LEFT.K: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [381.37, 0.0, 320.0,
+          0.0, 381.37, 240.0,
+          0.0, 0.0, 1.0]
+LEFT.R: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [1.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 1.0]
+LEFT.Rf: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: f
+   data: [1.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 1.0]
+LEFT.P: !!opencv-matrix
+   rows: 3
+   cols: 4
+   dt: d
+   data: [381.37, 0.0, 320.0, 0.0,
+          0.0, 381.37, 240.0, 0.0,
+          0.0, 0.0, 1.0, 0.0]
+
+RIGHT.height: 480
+RIGHT.width: 640
+RIGHT.D: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [0.0, 0.0, 0.0, 0.0, 0.0]
+RIGHT.K: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [381.37, 0.0, 320.0,
+          0.0, 381.37, 240.0,
+          0.0, 0.0, 1.0]
+RIGHT.R: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [1.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 1.0]
+RIGHT.P: !!opencv-matrix
+   rows: 3
+   cols: 4
+   dt: d
+   data: [381.37, 0.0, 320.0, -45.764,
+          0.0, 381.37, 240.0, 0.0,
+          0.0, 0.0, 1.0, 0.0]
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+# nFeatures reduced from 1200 for CPU-only performance (Ryzen 7 5700U, no GPU)
+#--------------------------------------------------------------------------------------------
+ORBextractor.nFeatures: 1200
+ORBextractor.scaleFactor: 1.2
+ORBextractor.nLevels: 8
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500

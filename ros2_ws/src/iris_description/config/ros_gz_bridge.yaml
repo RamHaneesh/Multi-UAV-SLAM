@@ -1,0 +1,49 @@
+# clock from gz to ros2
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+# # getting the actual pose of UAV in Gazebo
+# - ros_topic_name: "/gazebo_pose"
+#   gz_topic_name: "/world/default/dynamic_pose/info"
+#   ros_type_name: "geometry_msgs/msg/PoseArray"
+#   gz_type_name: "gz.msgs.Pose_V"
+#   direction: GZ_TO_ROS
+
+### CAMERA 
+
+# left camera
+- ros_topic_name: "/camera/left/image_raw"
+  gz_topic_name: "/camera/left/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/camera/left/camera_info"
+  gz_topic_name: "/camera/left/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+# right camera
+- ros_topic_name: "/camera/right/image_raw"
+  gz_topic_name: "/camera/right/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/camera/right/camera_info"
+  gz_topic_name: "/camera/right/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+
+### IMU
+# - ros_topic_name: "/imu/data_raw"
+#   gz_topic_name: "/world/default/model/iris/model/iris_with_standoffs/link/imu_link/sensor/imu_sensor/imu"
+#   ros_type_name: "sensor_msgs/msg/Imu"
+#   gz_type_name: "gz.msgs.IMU"
+#   direction: GZ_TO_ROS
